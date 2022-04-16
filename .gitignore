@@ -3,3 +3,13 @@
 ################################################################################
 
 /NetCore5/ApiProdutos/.vs/ApiProdutos
+/NetCore5/ApiProdutos/Produtos.Api/bin/Debug/net5.0
+/NetCore5/ApiProdutos/Produtos.Api/obj
+/NetCore5/ApiProdutos/Produtos.Application/bin/Debug/net5.0
+/NetCore5/ApiProdutos/Produtos.Application/obj
+/NetCore5/ApiProdutos/Produtos.Domain/bin/Debug/net5.0
+/NetCore5/ApiProdutos/Produtos.Domain/obj
+/NetCore5/ApiProdutos/Produtos.Infra.Data/bin/Debug/net5.0
+/NetCore5/ApiProdutos/Produtos.Infra.Data/obj
+/NetCore5/ApiProdutos/Produtos.Infra.IoC/ClassLibrary1/bin/Debug/net5.0
+/NetCore5/ApiProdutos/Produtos.Infra.IoC/ClassLibrary1/obj
