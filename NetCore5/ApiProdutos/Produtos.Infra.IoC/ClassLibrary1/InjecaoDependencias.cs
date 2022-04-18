@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Produtos.Infra.Data.Interfaces.Api;
-using Produtos.Infra.Data.Repositorios.Api;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Produtos.Application.Config;
+using Produtos.Infra.Data.Config;
 
 namespace Produtos.Infra.IoC
 {
@@ -13,8 +8,8 @@ namespace Produtos.Infra.IoC
     {
         public static void ConfigurarDependencias(IServiceCollection services)
         {
-            services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
-
+            services.InjetarDependenciasInfraData();
+            services.InjetarDependenciasAplication();
         }
     }
 }
