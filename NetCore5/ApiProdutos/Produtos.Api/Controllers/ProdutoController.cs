@@ -18,9 +18,16 @@ namespace Produtos.Api.Controllers
         }
 
         [HttpGet]
+        [Route("/Produto/ListarProdutos")]
         public IEnumerable<Produto> ListarProdutos()
         {
             return _produtoService.Listar();
+        }
+        [HttpPost]
+        [Route("/Produto/InserirProduto")]
+        public void InserirProduto(Produto entidade)
+        {
+             _produtoService.Inserir(entidade);
         }
     }
 }

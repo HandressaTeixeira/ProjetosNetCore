@@ -6,30 +6,30 @@ using System.Collections.Generic;
 
 namespace Produtos.Infra.Data.Repositorios.Api
 {
-    public class ProdutoRepositorio : IProdutoRepositorio
+    public class FornecedorRepositorio : IFornecedorRepositorio
     {
         private readonly ContextoPrincipal _contexto;
 
-        public ProdutoRepositorio(ContextoPrincipal contexto)
+        public FornecedorRepositorio(ContextoPrincipal contexto)
         {
             _contexto = contexto;
         }
 
-        public void Inserir(Produto entidade)
+        public void Inserir(Fornecedor entidade)
         {
             _contexto.Add(entidade);
             _contexto.SaveChanges();
         }
 
-        public void Atualizar(Produto entidade)
+        public void Atualizar(Fornecedor entidade)
         {
             _contexto.Update(entidade);
             _contexto.SaveChanges();
         }
 
-        public IEnumerable<Produto> Listar()
+        public IEnumerable<Fornecedor> Listar()
         {
-            return _contexto.Produto.AsNoTrackingWithIdentityResolution();
+            return _contexto.Fornecedor.AsNoTrackingWithIdentityResolution();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Produtos.Application.Config
         public static void InjetarDependenciasAplication(this IServiceCollection services)
         {
             services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IFornecedorService, FornecedorService>();
         }
     }
 }

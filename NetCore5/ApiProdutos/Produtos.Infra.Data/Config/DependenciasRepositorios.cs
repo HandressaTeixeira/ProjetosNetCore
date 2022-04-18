@@ -11,6 +11,7 @@ namespace Produtos.Infra.Data.Config
         {
             services.AddTransient<ContextoPrincipal>();
             services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
+            services.AddScoped<IFornecedorRepositorio, FornecedorRepositorio>();
         }
     }
 }

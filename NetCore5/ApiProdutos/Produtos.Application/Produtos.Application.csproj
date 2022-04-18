@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\Api\" />
-    <Folder Include="Services\Api\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Produtos.Domain\Produtos.Domain.csproj" />
     <ProjectReference Include="..\Produtos.Infra.Data\Produtos.Infra.Data.csproj" />
   </ItemGroup>
