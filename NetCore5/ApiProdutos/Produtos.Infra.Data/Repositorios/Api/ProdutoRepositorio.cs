@@ -29,7 +29,9 @@ namespace Produtos.Infra.Data.Repositorios.Api
 
         public IEnumerable<Produto> Listar()
         {
-            return _contexto.Produto.AsNoTrackingWithIdentityResolution();
+            return _contexto.Produto
+                .Include(x => x.Fornecedor)
+                .AsNoTrackingWithIdentityResolution();
         }
     }
 }

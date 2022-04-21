@@ -1,6 +1,8 @@
 ﻿using Produtos.Application.Interfaces.Api;
+using Produtos.Application.ViewModel;
 using Produtos.Domain.Entidades;
 using Produtos.Infra.Data.Interfaces.Api;
+using System;
 using System.Collections.Generic;
 
 namespace Produtos.Application.Services.Api
@@ -14,14 +16,21 @@ namespace Produtos.Application.Services.Api
             _repositorio = repositorio;
         }
 
-        public void Inserir(Fornecedor entidade)
+        public string Inserir(InserirFornecedorViewModel model)
         {
-            _repositorio.Inserir(entidade);
+            _repositorio.Inserir(new Fornecedor(model.Nome, model.Email));
+
+            return "Cadastrado com suceso";
         }
 
-        public void Atualizar(Fornecedor entidade)
+        public string Atualizar(AtualizarFornecedorViewModel model)
         {
-            _repositorio.Atualizar(entidade);
+            if (model.Id == 0)
+                return "Id é obrigatório";
+
+            _repositorio.Atualizar(new Fornecedor(model.Id, model.Nome, model.Email));
+   
+            return "Atualizado com sucesso";
         }
 
         public IEnumerable<Fornecedor> Listar()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Produtos.Application.Interfaces.Api;
+using Produtos.Application.ViewModel;
 using Produtos.Domain.Entidades;
 using System.Collections.Generic;
 
@@ -23,11 +24,19 @@ namespace Produtos.Api.Controllers
         {
             return _produtoService.Listar();
         }
+
         [HttpPost]
-        [Route("/Produto/InserirProduto")]
-        public void InserirProduto(Produto entidade)
+        [Route("/Produto/Inserir")]
+        public string Inserir(InserirProdutoViewModel model)
         {
-             _produtoService.Inserir(entidade);
+             return _produtoService.Inserir(model);
+        }
+
+        [HttpPost]
+        [Route("/Produto/Atualizar")]
+        public string Atualizar(AtualizarProdutoViewModel model)
+        {
+            return _produtoService.Atualizar(model);
         }
     }
 }

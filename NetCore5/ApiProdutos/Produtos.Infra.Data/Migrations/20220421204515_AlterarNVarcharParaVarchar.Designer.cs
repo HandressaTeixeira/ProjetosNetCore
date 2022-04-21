@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Produtos.Infra.Data.Contextos;
 
 namespace Produtos.Infra.Data.Migrations
 {
     [DbContext(typeof(ContextoPrincipal))]
-    partial class ContextoPrincipalModelSnapshot : ModelSnapshot
+    [Migration("20220421204515_AlterarNVarcharParaVarchar")]
+    partial class AlterarNVarcharParaVarchar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

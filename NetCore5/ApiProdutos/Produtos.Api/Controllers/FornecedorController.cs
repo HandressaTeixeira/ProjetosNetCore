@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Produtos.Application.Interfaces.Api;
+using Produtos.Application.ViewModel;
 using Produtos.Domain.Entidades;
 using System.Collections.Generic;
 
@@ -24,10 +25,17 @@ namespace Produtos.Api.Controllers
             return _fornecedorService.Listar();
         }
         [HttpPost]
-        [Route("/Fornecedor/InserirFornecedor")]
-        public void InserirFornecedor(Fornecedor entidade)
+        [Route("/Fornecedor/Inserir")]
+        public string Inserir(InserirFornecedorViewModel model)
         {
-             _fornecedorService.Inserir(entidade);
+            return _fornecedorService.Inserir(model);
+        }
+
+        [HttpPost]
+        [Route("/Fornecedor/Atualizar")]
+        public string Atualizar(AtualizarFornecedorViewModel model)
+        {
+            return _fornecedorService.Atualizar(model);
         }
     }
 }

@@ -23,14 +23,14 @@ namespace Produtos.Infra.Data.Contextos
             //----------------------------------Produto------------------------------------------------
 
             //TODO: Verificar porque HasColumnType não esta sendo encontrado
-            modelBuilder.Entity<Produto>().Property(x => x.Nome).HasMaxLength(150).IsRequired();
-            modelBuilder.Entity<Produto>().Property(x => x.Descricao).HasMaxLength(250).IsRequired();
+            modelBuilder.Entity<Produto>().Property(x => x.Nome).HasColumnType("VARCHAR(150)").IsRequired();
+            modelBuilder.Entity<Produto>().Property(x => x.Descricao).HasColumnType("VARCHAR(150)").IsRequired();
 
             //----------------------------------Fornecedor------------------------------------------------
 
             //TODO: Verificar porque HasColumnType não esta sendo encontrado
-            modelBuilder.Entity<Fornecedor>().Property(x => x.Nome).HasMaxLength(150).IsRequired();
-            modelBuilder.Entity<Fornecedor>().Property(x => x.Email).HasMaxLength(150).IsRequired();
+            modelBuilder.Entity<Fornecedor>().Property(x => x.Nome).HasColumnType("VARCHAR(150)").IsRequired();
+            modelBuilder.Entity<Fornecedor>().Property(x => x.Email).HasColumnType("VARCHAR(150)").IsRequired();
         }
 
     }

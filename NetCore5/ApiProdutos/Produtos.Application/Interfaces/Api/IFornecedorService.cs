@@ -1,4 +1,5 @@
-﻿using Produtos.Domain.Entidades;
+﻿using Produtos.Application.ViewModel;
+using Produtos.Domain.Entidades;
 using System.Collections.Generic;
 
 namespace Produtos.Application.Interfaces.Api
@@ -6,7 +7,7 @@ namespace Produtos.Application.Interfaces.Api
     public interface IFornecedorService
     {
         IEnumerable<Fornecedor> Listar();
-        void Inserir(Fornecedor entidade);
-        void Atualizar(Fornecedor entidade);
+        string Inserir(InserirFornecedorViewModel model);
+        string Atualizar(AtualizarFornecedorViewModel model);
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Produtos.Domain.Entidades
+﻿namespace Produtos.Domain.Entidades
 {
     public class Produto
     {
@@ -14,5 +8,20 @@ namespace Produtos.Domain.Entidades
 
         public int FornecedorId { get; set; }
         public virtual Fornecedor Fornecedor { get; set; }
+
+        public Produto(string nome, string descricao, int fornecedorId)
+        {
+            Nome = nome;
+            Descricao = descricao;
+            FornecedorId = fornecedorId;
+        }
+
+        public Produto(int id, string nome, string descricao, int fornecedorId)
+        {
+            Id = id;
+            Nome = nome;
+            Descricao = descricao;
+            FornecedorId = fornecedorId;
+        }
     }
 }

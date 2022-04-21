@@ -1,15 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Produtos.Domain.Entidades
+﻿namespace Produtos.Domain.Entidades
 {
     public class Fornecedor
     {
-        public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Email { get; set; }
+        public int Id { get; private set; }
+        public string Nome { get; private set; }
+        public string Email { get; private set; }
+
+        public Fornecedor(string nome, string email)
+        {
+            Nome = nome;
+            Email = email;
+        }
+
+        public Fornecedor(int id, string nome, string email)
+        {
+            Id = id;
+            Nome = nome;
+            Email = email;
+        }
     }
 }
