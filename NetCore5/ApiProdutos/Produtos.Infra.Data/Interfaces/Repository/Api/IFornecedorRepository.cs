@@ -10,7 +10,9 @@ namespace Produtos.Infra.Data.Interfaces.Repository.Api
         IQueryable<Fornecedor> Listar();
         int Inserir(Fornecedor entidade);
         int Atualizar(Fornecedor entidade);
+        int Deletar(Fornecedor entidade);
         bool Existe(Expression<Func<Fornecedor, bool>> expression);
+        Fornecedor Buscar(Expression<Func<Fornecedor, bool>> expression);
 
     }
 }

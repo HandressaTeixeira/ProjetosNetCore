@@ -2,6 +2,7 @@
 using Produtos.Application.Interfaces.Services.Api;
 using Produtos.Application.ViewModel;
 using Produtos.Domain.Entidades;
+using System;
 using System.Collections.Generic;
 
 namespace Produtos.Api.Controllers
@@ -35,10 +36,22 @@ namespace Produtos.Api.Controllers
 
         [HttpPut]
         [Route("/Fornecedor/Atualizar")]
-        public string Atualizar(AtualizarFornecedorViewModel model)
+        public IActionResult Atualizar(AtualizarFornecedorViewModel model)
         {
             var resultado = _fornecedorService.Atualizar(model);
-            return string.IsNullOrWhiteSpace(resultado) ? "Atualizado com sucesso" : resultado;
+            return string.IsNullOrWhiteSpace(resultado) 
+                ? Ok("Atualizado com sucesso")
+                : BadRequest(resultado);
+        }
+
+        [HttpDelete]
+        [Route("/Fornecedor/Deletar/{id}")]
+        public IActionResult Deletar(Guid id)
+        {
+            var resultado = _fornecedorService.Deletar(id);
+            return string.IsNullOrWhiteSpace(resultado)
+                ? Ok("Deletado com sucesso")
+                : BadRequest(resultado);
         }
     }
 }

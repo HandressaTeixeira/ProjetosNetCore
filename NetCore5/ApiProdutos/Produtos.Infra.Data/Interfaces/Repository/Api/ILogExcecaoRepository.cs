@@ -10,6 +10,8 @@ namespace Produtos.Infra.Data.Interfaces.Repository.Api
         IQueryable<Produto> Listar();
         int Inserir(Produto entidade);
         int Atualizar(Produto entidade);
+        int Deletar(Produto entidade);
         bool Existe(Expression<Func<Produto, bool>> expression);
+        Produto Buscar(Expression<Func<Produto, bool>> expression);
     }
 }

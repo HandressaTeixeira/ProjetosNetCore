@@ -29,11 +29,22 @@ namespace Produtos.Infra.Data.Repositorios.Api
             return _contexto.SaveChanges();
         }
 
+        int IFornecedorRepository.Deletar(Fornecedor entidade)
+        {
+            _contexto.Remove(entidade);
+            return _contexto.SaveChanges();
+        }
+
         IQueryable<Fornecedor> IFornecedorRepository.Listar()
         {
             return _contexto.Fornecedor
                 .AsNoTrackingWithIdentityResolution()
                 .OrderBy(x => x.Nome);
+        }
+
+        Fornecedor IFornecedorRepository.Buscar(Expression<Func<Fornecedor, bool>> expression)
+        {
+            return _contexto.Fornecedor.FirstOrDefault(expression);
         }
 
         bool IFornecedorRepository.Existe(Expression<Func<Fornecedor, bool>> expression)

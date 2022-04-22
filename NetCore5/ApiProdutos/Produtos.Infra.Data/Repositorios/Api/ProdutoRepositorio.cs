@@ -29,6 +29,12 @@ namespace Produtos.Infra.Data.Repositorios.Api
             return _contexto.SaveChanges();
         }
 
+        int IProdutoRepository.Deletar(Produto entidade)
+        {
+            _contexto.Remove(entidade);
+            return _contexto.SaveChanges();
+        }
+
         IQueryable<Produto> IProdutoRepository.Listar()
         {
             return _contexto.Produto
@@ -40,6 +46,11 @@ namespace Produtos.Infra.Data.Repositorios.Api
         bool IProdutoRepository.Existe(Expression<Func<Produto, bool>> expression)
         {
             return _contexto.Produto.Any(expression);
+        }
+
+        Produto IProdutoRepository.Buscar(Expression<Func<Produto, bool>> expression)
+        {
+            return _contexto.Produto.FirstOrDefault(expression);
         }
     }
 }

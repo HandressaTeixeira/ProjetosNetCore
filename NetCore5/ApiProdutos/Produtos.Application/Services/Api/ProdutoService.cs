@@ -2,6 +2,7 @@
 using Produtos.Application.ViewModel;
 using Produtos.Domain.Entidades;
 using Produtos.Infra.Data.Interfaces.Repository.Api;
+using System;
 using System.Collections.Generic;
 
 namespace Produtos.Application.Services.Api
@@ -52,6 +53,24 @@ namespace Produtos.Application.Services.Api
            var resultado = _repositorio.Atualizar(new Produto(model.Guid, model.Nome, model.Descricao, model.FornecedorGuid));
 
             return resultado > 0 ? "" : "Erro ao atualizar o produto";
+        }
+
+        string IProdutoService.Deletar(Guid produtoId)
+        {
+            #region Validações
+            if (produtoId == default)
+                return "Guid é obrigatório";
+
+            var produto = _repositorio.Buscar(x => x.Guid == produtoId);
+
+            if (produto == null)
+                return "Produto não encontrado";
+
+            #endregion
+
+            var resultado = _repositorio.Deletar(produto);
+
+            return resultado > 0 ? "" : "Erro ao deletar o produto";
         }
 
         IEnumerable<Produto> IProdutoService.Listar()
