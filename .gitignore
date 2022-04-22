@@ -13,3 +13,5 @@
 /NetCore5/ApiProdutos/Produtos.Infra.Data/obj
 /NetCore5/ApiProdutos/Produtos.Infra.IoC/ClassLibrary1/bin/Debug/net5.0
 /NetCore5/ApiProdutos/Produtos.Infra.IoC/ClassLibrary1/obj
+bin
+obj
