@@ -17,16 +17,16 @@ namespace Produtos.Infra.Data.Repositorios.Api
             _contexto = contexto;
         }
 
-        void IProdutoRepository.Inserir(Produto entidade)
+        int IProdutoRepository.Inserir(Produto entidade)
         {
             _contexto.Add(entidade);
-            _contexto.SaveChanges();
+            return _contexto.SaveChanges();
         }
 
-        void IProdutoRepository.Atualizar(Produto entidade)
+        int IProdutoRepository.Atualizar(Produto entidade)
         {
             _contexto.Update(entidade);
-            _contexto.SaveChanges();
+            return _contexto.SaveChanges();
         }
 
         IQueryable<Produto> IProdutoRepository.Listar()

@@ -8,8 +8,8 @@ namespace Produtos.Infra.Data.Interfaces.Repository.Api
     public interface IFornecedorRepository
     {
         IQueryable<Fornecedor> Listar();
-        void Inserir(Fornecedor entidade);
-        void Atualizar(Fornecedor entidade);
+        int Inserir(Fornecedor entidade);
+        int Atualizar(Fornecedor entidade);
         bool Existe(Expression<Func<Fornecedor, bool>> expression);
 
     }

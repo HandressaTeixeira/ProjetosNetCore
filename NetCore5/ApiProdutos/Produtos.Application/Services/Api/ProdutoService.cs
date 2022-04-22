@@ -28,9 +28,9 @@ namespace Produtos.Application.Services.Api
                 return "Fornecedor não encontrado";
             #endregion
 
-            _repositorio.Inserir(new Produto(model.Nome, model.Descricao, model.FornecedorGuid));
+            var resultado = _repositorio.Inserir(new Produto(model.Nome, model.Descricao, model.FornecedorGuid));
 
-            return "Cadastrado com sucesso";
+            return resultado > 0 ? "" : "Erro ao inserir o produto";
         }
 
         string IProdutoService.Atualizar(AtualizarProdutoViewModel model)
@@ -49,9 +49,9 @@ namespace Produtos.Application.Services.Api
                 return "Fornecedor não encontrado";
             #endregion
 
-            _repositorio.Atualizar(new Produto(model.Guid, model.Nome, model.Descricao, model.FornecedorGuid));
+           var resultado = _repositorio.Atualizar(new Produto(model.Guid, model.Nome, model.Descricao, model.FornecedorGuid));
 
-            return "Atualizado com sucesso";
+            return resultado > 0 ? "" : "Erro ao atualizar o produto";
         }
 
         IEnumerable<Produto> IProdutoService.Listar()

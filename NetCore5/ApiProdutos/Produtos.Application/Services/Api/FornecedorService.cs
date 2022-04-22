@@ -17,9 +17,9 @@ namespace Produtos.Application.Services.Api
 
         string IFornecedorService.Inserir(InserirFornecedorViewModel model)
         {
-            _repositorio.Inserir(new Fornecedor(model.Nome, model.Email));
+            var resultado = _repositorio.Inserir(new Fornecedor(model.Nome, model.Email));
 
-            return "Cadastrado com suceso";
+            return resultado > 0 ? "" : "Erro ao inserir o fornecedor";
         }
 
         string IFornecedorService.Atualizar(AtualizarFornecedorViewModel model)
@@ -32,9 +32,9 @@ namespace Produtos.Application.Services.Api
                 return "Fornecedor não encontrado";
             #endregion
 
-            _repositorio.Atualizar(new Fornecedor(model.Guid, model.Nome, model.Email));
+            var resultado = _repositorio.Atualizar(new Fornecedor(model.Guid, model.Nome, model.Email));
 
-            return "Atualizado com sucesso";
+            return resultado > 0 ? "" : "Erro ao atualizar o fornecedor";
         }
 
         IEnumerable<Fornecedor> IFornecedorService.Listar()

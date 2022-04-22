@@ -29,14 +29,16 @@ namespace Produtos.Api.Controllers
         [Route("/Produto/Inserir")]
         public string Inserir(InserirProdutoViewModel model)
         {
-             return _produtoService.Inserir(model);
+            var resultado = _produtoService.Inserir(model);
+            return string.IsNullOrWhiteSpace(resultado) ? "Cadastrado com sucesso" : resultado;
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("/Produto/Atualizar")]
         public string Atualizar(AtualizarProdutoViewModel model)
         {
-            return _produtoService.Atualizar(model);
+            var resultado = _produtoService.Atualizar(model);
+            return string.IsNullOrWhiteSpace(resultado) ? "Atualizado com sucesso" : resultado;
         }
     }
 }

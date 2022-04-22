@@ -24,18 +24,21 @@ namespace Produtos.Api.Controllers
         {
             return _fornecedorService.Listar();
         }
+
         [HttpPost]
         [Route("/Fornecedor/Inserir")]
         public string Inserir(InserirFornecedorViewModel model)
         {
-            return _fornecedorService.Inserir(model);
+            var resultado = _fornecedorService.Inserir(model);
+            return string.IsNullOrWhiteSpace(resultado) ? "Cadastrado com sucesso" : resultado;
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("/Fornecedor/Atualizar")]
         public string Atualizar(AtualizarFornecedorViewModel model)
         {
-            return _fornecedorService.Atualizar(model);
+            var resultado = _fornecedorService.Atualizar(model);
+            return string.IsNullOrWhiteSpace(resultado) ? "Atualizado com sucesso" : resultado;
         }
     }
 }
