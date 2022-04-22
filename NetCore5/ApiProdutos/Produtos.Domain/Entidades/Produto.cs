@@ -1,27 +1,32 @@
-﻿namespace Produtos.Domain.Entidades
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace Produtos.Domain.Entidades
 {
     public class Produto
     {
-        public int Id { get; set; }
+        [Key]
+        public Guid Guid { get; private set; }
         public string Nome { get; set; }
         public string Descricao { get; set; }
 
-        public int FornecedorId { get; set; }
+        public Guid FornecedorGuid { get; set; }
         public virtual Fornecedor Fornecedor { get; set; }
 
-        public Produto(string nome, string descricao, int fornecedorId)
+        public Produto(string nome, string descricao, Guid fornecedorGuid)
         {
+            Guid = Guid.NewGuid();
             Nome = nome;
             Descricao = descricao;
-            FornecedorId = fornecedorId;
+            FornecedorGuid = fornecedorGuid;
         }
 
-        public Produto(int id, string nome, string descricao, int fornecedorId)
+        public Produto(Guid guid, string nome, string descricao, Guid fornecedorGuid)
         {
-            Id = id;
+            Guid = guid;
             Nome = nome;
             Descricao = descricao;
-            FornecedorId = fornecedorId;
+            FornecedorGuid = fornecedorGuid;
         }
     }
 }

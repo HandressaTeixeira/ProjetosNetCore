@@ -1,39 +1,43 @@
-﻿using Produtos.Application.Interfaces.Api;
+﻿using Produtos.Application.Interfaces.Services.Api;
 using Produtos.Application.ViewModel;
 using Produtos.Domain.Entidades;
-using Produtos.Infra.Data.Interfaces.Api;
-using System;
+using Produtos.Infra.Data.Interfaces.Repository.Api;
 using System.Collections.Generic;
 
 namespace Produtos.Application.Services.Api
 {
     public class FornecedorService : IFornecedorService
     {
-        private readonly IFornecedorRepositorio _repositorio;
+        private readonly IFornecedorRepository _repositorio;
 
-        public FornecedorService(IFornecedorRepositorio repositorio)
+        public FornecedorService(IFornecedorRepository repositorio)
         {
             _repositorio = repositorio;
         }
 
-        public string Inserir(InserirFornecedorViewModel model)
+        string IFornecedorService.Inserir(InserirFornecedorViewModel model)
         {
             _repositorio.Inserir(new Fornecedor(model.Nome, model.Email));
 
             return "Cadastrado com suceso";
         }
 
-        public string Atualizar(AtualizarFornecedorViewModel model)
+        string IFornecedorService.Atualizar(AtualizarFornecedorViewModel model)
         {
-            if (model.Id == 0)
-                return "Id é obrigatório";
+            #region Validações
+            if (model.Guid == default)
+                return "Guid é obrigatório";
 
-            _repositorio.Atualizar(new Fornecedor(model.Id, model.Nome, model.Email));
-   
+            if (!_repositorio.Existe(x => x.Guid == model.Guid))
+                return "Fornecedor não encontrado";
+            #endregion
+
+            _repositorio.Atualizar(new Fornecedor(model.Guid, model.Nome, model.Email));
+
             return "Atualizado com sucesso";
         }
 
-        public IEnumerable<Fornecedor> Listar()
+        IEnumerable<Fornecedor> IFornecedorService.Listar()
         {
             return _repositorio.Listar();
         }

@@ -2,7 +2,7 @@
 using Produtos.Domain.Entidades;
 using System.Collections.Generic;
 
-namespace Produtos.Application.Interfaces.Api
+namespace Produtos.Application.Interfaces.Services.Api
 {
     public interface IFornecedorService
     {

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Produtos.Application.Interfaces.Api;
+using Produtos.Application.Interfaces.Services.Api;
 using Produtos.Application.Services.Api;
 
 namespace Produtos.Application.Config
@@ -10,6 +10,7 @@ namespace Produtos.Application.Config
         {
             services.AddScoped<IProdutoService, ProdutoService>();
             services.AddScoped<IFornecedorService, FornecedorService>();
+            services.AddScoped<ILogExcecaoService, LogExcecaoService>();
         }
     }
 }

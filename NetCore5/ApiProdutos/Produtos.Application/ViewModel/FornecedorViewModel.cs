@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Produtos.Application.ViewModel
 {
@@ -16,8 +17,8 @@ namespace Produtos.Application.ViewModel
     public class AtualizarFornecedorViewModel
     {
 
-        [Required(ErrorMessage = "Id do fornecedor é obrigatório")]
-        public int Id { get; set; }
+        [Required(ErrorMessage = "Guid do fornecedor é obrigatório")]
+        public Guid Guid { get; set; }
 
         [Required(ErrorMessage = "Nome do fornecedor é obrigatório")]
         [MaxLength(150, ErrorMessage = "Nome deve ter no máximo 150 caracteres.")]

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Produtos.Application.Interfaces.Api;
+using Produtos.Application.Interfaces.Services.Api;
 using Produtos.Application.ViewModel;
 using Produtos.Domain.Entidades;
 using System.Collections.Generic;
@@ -19,8 +19,8 @@ namespace Produtos.Api.Controllers
         }
 
         [HttpGet]
-        [Route("/Produto/ListarProdutos")]
-        public IEnumerable<Produto> ListarProdutos()
+        [Route("/Produto/Listar")]
+        public IEnumerable<Produto> Listar()
         {
             return _produtoService.Listar();
         }

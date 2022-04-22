@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Produtos.Infra.Data.Contextos;
-using Produtos.Infra.Data.Interfaces.Api;
+using Produtos.Infra.Data.Interfaces.Repository.Api;
 using Produtos.Infra.Data.Repositorios.Api;
 
 namespace Produtos.Infra.Data.Config
@@ -10,8 +10,9 @@ namespace Produtos.Infra.Data.Config
         public static void InjetarDependenciasInfraData(this IServiceCollection services)
         {
             services.AddTransient<ContextoPrincipal>();
-            services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
-            services.AddScoped<IFornecedorRepositorio, FornecedorRepositorio>();
+            services.AddScoped<IProdutoRepository, ProdutoRepositorio>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+            services.AddScoped<ILogExcecaoRepositorio, LogExcecaoRepositorio>();
         }
     }
 }

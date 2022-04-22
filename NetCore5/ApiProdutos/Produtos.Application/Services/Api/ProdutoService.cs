@@ -1,41 +1,60 @@
-﻿using Produtos.Application.Interfaces.Api;
+﻿using Produtos.Application.Interfaces.Services.Api;
 using Produtos.Application.ViewModel;
 using Produtos.Domain.Entidades;
-using Produtos.Infra.Data.Interfaces.Api;
+using Produtos.Infra.Data.Interfaces.Repository.Api;
 using System.Collections.Generic;
 
 namespace Produtos.Application.Services.Api
 {
     public class ProdutoService : IProdutoService
     {
-        private readonly IProdutoRepositorio _repositorio;
+        private readonly IProdutoRepository _repositorio;
+        private readonly IFornecedorRepository _fornecedorRepositorio;
 
-        public ProdutoService(IProdutoRepositorio repositorio)
+        public ProdutoService(IProdutoRepository repositorio,
+            IFornecedorRepository fornecedorRepositorio)
         {
             _repositorio = repositorio;
+            _fornecedorRepositorio = fornecedorRepositorio;
         }
 
-        public string Inserir(InserirProdutoViewModel model)
+        string IProdutoService.Inserir(InserirProdutoViewModel model)
         {
-            if(model.FornecedorId == 0)
-                return "FornecedorId é obrigatório";
+            #region Validações
+            if (model.FornecedorGuid == default)
+                return "FornecedorGuid é obrigatório";
 
-            _repositorio.Inserir(new Produto(model.Nome, model.Descricao, model.FornecedorId));
+            if (!_fornecedorRepositorio.Existe(x => x.Guid == model.FornecedorGuid))
+                return "Fornecedor não encontrado";
+            #endregion
+
+            _repositorio.Inserir(new Produto(model.Nome, model.Descricao, model.FornecedorGuid));
 
             return "Cadastrado com sucesso";
         }
 
-        public string Atualizar(AtualizarProdutoViewModel model)
+        string IProdutoService.Atualizar(AtualizarProdutoViewModel model)
         {
-            if (model.Id == 0)
-                return "Id é obrigatório";
+            #region Validações
+            if (model.Guid == default)
+                return "Guid é obrigatório";
 
-            _repositorio.Atualizar(new Produto(model.Id, model.Nome, model.Descricao, model.FornecedorId));
+            if (model.FornecedorGuid == default)
+                return "FornecedorGuid é obrigatório";
+
+            if(!_repositorio.Existe(x => x.Guid == model.Guid))
+                return "Produto não encontrado";
+
+            if (!_fornecedorRepositorio.Existe(x => x.Guid == model.FornecedorGuid))
+                return "Fornecedor não encontrado";
+            #endregion
+
+            _repositorio.Atualizar(new Produto(model.Guid, model.Nome, model.Descricao, model.FornecedorGuid));
 
             return "Atualizado com sucesso";
         }
 
-        public IEnumerable<Produto> Listar()
+        IEnumerable<Produto> IProdutoService.Listar()
         {
             return _repositorio.Listar();
         }

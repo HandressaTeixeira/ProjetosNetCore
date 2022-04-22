@@ -7,6 +7,7 @@ namespace Produtos.Infra.Data.Contextos
     {
         public DbSet<Produto> Produto { get; set; }
         public DbSet<Fornecedor> Fornecedor { get; set; }
+        public DbSet<LogExcecao> LogExcecao { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -16,21 +17,24 @@ namespace Produtos.Infra.Data.Contextos
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*Não adicionado configurações de chaves primarias, estrangeiras e um pra muitos 
-             * porque o entity framwork identifica automaticamente*/
-
-
             //----------------------------------Produto------------------------------------------------
-
-            //TODO: Verificar porque HasColumnType não esta sendo encontrado
+            modelBuilder.Entity<Produto>().Property(x => x.Guid).IsRequired();
             modelBuilder.Entity<Produto>().Property(x => x.Nome).HasColumnType("VARCHAR(150)").IsRequired();
             modelBuilder.Entity<Produto>().Property(x => x.Descricao).HasColumnType("VARCHAR(150)").IsRequired();
 
             //----------------------------------Fornecedor------------------------------------------------
 
-            //TODO: Verificar porque HasColumnType não esta sendo encontrado
+            modelBuilder.Entity<Fornecedor>().Property(x => x.Guid).IsRequired();
             modelBuilder.Entity<Fornecedor>().Property(x => x.Nome).HasColumnType("VARCHAR(150)").IsRequired();
             modelBuilder.Entity<Fornecedor>().Property(x => x.Email).HasColumnType("VARCHAR(150)").IsRequired();
+
+            //----------------------------------LogExcecao------------------------------------------------
+            
+            modelBuilder.Entity<LogExcecao>().Property(x => x.Guid).IsRequired();
+            modelBuilder.Entity<LogExcecao>().Property(x => x.Mensagem).HasColumnType("VARCHAR(500)").IsRequired();
+            modelBuilder.Entity<LogExcecao>().Property(x => x.StackTrace).HasColumnType("VARCHAR(MAX)").IsRequired();
+            modelBuilder.Entity<LogExcecao>().Property(x => x.Data).IsRequired();
+
         }
 
     }

@@ -1,20 +1,25 @@
-﻿namespace Produtos.Domain.Entidades
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace Produtos.Domain.Entidades
 {
     public class Fornecedor
     {
-        public int Id { get; private set; }
+        [Key]
+        public Guid Guid { get; private set; }
         public string Nome { get; private set; }
         public string Email { get; private set; }
 
         public Fornecedor(string nome, string email)
         {
+            Guid = Guid.NewGuid();
             Nome = nome;
             Email = email;
         }
 
-        public Fornecedor(int id, string nome, string email)
+        public Fornecedor(Guid guid, string nome, string email)
         {
-            Id = id;
+            Guid = guid;
             Nome = nome;
             Email = email;
         }
