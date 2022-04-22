@@ -36,7 +36,7 @@ app.UseHttpsRedirection();
 #region Produtos
 
 app.MapGet("/Produtos/Listar", async (Contexto _contexto) =>
-    await _contexto.Produto.ToListAsync())
+    await _contexto.Produto.OrderBy(x => x.Nome).ToListAsync())
 .WithName("ListarProdutos")
 .WithTags("Produtos");
 
@@ -94,12 +94,34 @@ app.MapPut("/Produtos/Atualizar",
     .Produces(StatusCodes.Status400BadRequest)
     .WithName("AtualizarProduto")
     .WithTags("Produtos");
+
+
+app.MapDelete("/Produtos/Deletar/{id}",
+    async (Guid id, Contexto _contexto) =>
+    {
+        var fornecedor = await _contexto.Produto.FirstOrDefaultAsync(x => x.Id == id);
+
+        if (fornecedor == null)
+            return Results.NotFound("Fornecedor não encontrado");
+
+        _contexto.Produto.Remove(fornecedor);
+        var resultado = await _contexto.SaveChangesAsync();
+
+        return resultado > 0
+            ? Results.NoContent()
+            : Results.BadRequest("Houve um problema ao deletar o produto");
+    })
+    .Produces<Fornecedor>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status404NotFound)
+    .WithName("DeletarProdutoPorId")
+    .WithTags("Produtos");
+
 #endregion
 
 #region Fornecedores
 
 app.MapGet("/Fornecedores/Listar", async (Contexto _contexto) =>
-    await _contexto.Fornecedor.ToListAsync())
+    await _contexto.Fornecedor.OrderBy(x => x.Nome).ToListAsync())
 .WithName("ListarFornecedores")
 .WithTags("Fornecedores");
 
@@ -123,7 +145,7 @@ app.MapPost("/Fornecedores/Inserir",
         _contexto.Fornecedor.Add(fornecedor);
         var resultado = await _contexto.SaveChangesAsync();
 
-        return resultado > 0 
+        return resultado > 0
             ? Results.CreatedAtRoute("BuscarFornecedorPorId", new { id = fornecedor.Id }, fornecedor)
             : Results.BadRequest("Houve um problema ao inserir um novo fornecedor");
     })
@@ -153,6 +175,29 @@ app.MapPut("/Fornecedores/Atualizar",
     .Produces(StatusCodes.Status400BadRequest)
     .WithName("AtualizarFornecedor")
     .WithTags("Fornecedores");
+
+app.MapDelete("/Fornecedores/Deletar/{id}",
+    async (Guid id, Contexto _contexto) =>
+    {
+        var fornecedor = await _contexto.Fornecedor.FirstOrDefaultAsync(x => x.Id == id);
+
+        if (fornecedor == null)
+            return Results.NotFound("Fornecedor não encontrado");
+
+        if (_contexto.Produto.Any(x => x.FornecedorId == id))
+            return Results.BadRequest("Este fornecedor possui produtos vínculados e não pode ser deletado");
+
+        _contexto.Fornecedor.Remove(fornecedor);
+        var resultado = await _contexto.SaveChangesAsync();
+
+        return resultado > 0
+            ? Results.NoContent()
+            : Results.BadRequest("Houve um problema ao deletar o fornecedor");
+    })
+    .Produces<Fornecedor>(StatusCodes.Status200OK)
+    .Produces(StatusCodes.Status404NotFound)
+    .WithName("DeletarFornecedorPorId")
+    .WithTags("Fornecedores");
 #endregion
 
 #endregion
@@ -160,32 +205,3 @@ app.MapPut("/Fornecedores/Atualizar",
 
 //-------------------------------------Run-----------------------------------------------
 app.Run();
-
-
-
-
-//var summaries = new[]
-//{
-//    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-//};
-
-//app.MapGet("/weatherforecast", () =>
-//{
-//    var forecast = Enumerable.Range(1, 5).Select(index =>
-//       new WeatherForecast
-//       (
-//           DateTime.Now.AddDays(index),
-//           Random.Shared.Next(-20, 55),
-//           summaries[Random.Shared.Next(summaries.Length)]
-//       ))
-//        .ToArray();
-//    return forecast;
-//})
-//.WithName("GetWeatherForecast");
-
-//app.Run();
-
-//internal record WeatherForecast(DateTime Date, int TemperatureC, string? Summary)
-//{
-//    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-//}
